@@ -6,13 +6,15 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ClipPath(
-          child: Container(
-            height: 522.8,
-            color: kCurveBgColor,
+      body: Container(
+        child: Center(
+          child: ClipPath(
+            child: Container(
+              height: 350,
+              color: kCurveBgColor,
+            ),
+            clipper: WavyClipper(),
           ),
-          clipper: WavyClipper(),
         ),
       ),
     );
