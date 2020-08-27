@@ -52,7 +52,10 @@ class LoginScreen extends StatelessWidget {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
-                child: ButtonStyle('Next')),
+                child: ButtonStyle(
+                  text: 'Next',
+                  goto: 'OtpVerificationScreen',
+                )),
             Image.asset(
               'assets/images/otp-sent.png',
             )

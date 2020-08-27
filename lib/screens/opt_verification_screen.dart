@@ -68,7 +68,10 @@ class OtpVerification extends StatelessWidget {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
-                child: ButtonStyle('Verify')),
+                child: ButtonStyle(
+                  text: 'Verify',
+                  goto: 'IdentificationScreen',
+                )),
             Image.asset(
               'assets/images/otp.png',
             )
