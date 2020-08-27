@@ -14,7 +14,8 @@ class OnBoardingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(30, height * 0.03, 30, height * 0.09),
+              margin:
+                  EdgeInsets.fromLTRB(30, height * 0.03, 30, height * 0.078),
               child: Text(
                 "Welcome To\nOur App",
                 style: kRegisterTitle,
@@ -25,14 +26,15 @@ class OnBoardingScreen extends StatelessWidget {
               child: Container(
                 child: Image.asset(
                   'assets/images/get-started.png',
+                  height: height * 0.4,
                 ),
-                height: height * 0.45,
+                height: height * 0.5,
                 color: kCurveBgColor,
               ),
               clipper: DoubleClipper(),
             ),
             Container(
-              margin: EdgeInsets.only(top: height * 0.12),
+              margin: EdgeInsets.only(top: height * 0.08),
               child: Center(
                 child: Text(
                   "Join us in our Journey !",
@@ -41,8 +43,7 @@ class OnBoardingScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin:
-                  EdgeInsets.fromLTRB(30, height * 0.042, 30, height * 0.03),
+              margin: EdgeInsets.fromLTRB(30, height * 0.04, 30, height * 0.03),
               child: Center(
                 child: ButtonStyle('Get Started'),
               ),

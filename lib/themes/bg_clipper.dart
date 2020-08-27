@@ -4,9 +4,9 @@ class DoubleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.quadraticBezierTo(size.width * 0.6, size.height * 0.2, size.width, 0);
+    path.quadraticBezierTo(size.width * 0.7, size.height * 0.2, size.width, 0);
     path.lineTo(size.width, size.height);
-    path.quadraticBezierTo(size.width * 0.4, size.height * 0.8, 0, size.height);
+    path.quadraticBezierTo(size.width * 0.3, size.height * 0.8, 0, size.height);
     path.close();
 
     return path;
@@ -23,7 +23,8 @@ class BottomClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, size.height);
-    path.quadraticBezierTo(size.width * 0.4, size.height * 0.8, 0, size.height);
+    path.quadraticBezierTo(
+        size.width * 0.3, size.height * 0.75, size.width, size.height);
     path.lineTo(size.width, 0);
     path.close();
 
