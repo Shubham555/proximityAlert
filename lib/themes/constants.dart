@@ -18,3 +18,4 @@ const kguideText = TextStyle(
     fontSize: 18);
 const kCurveBgColor = Color(0xffF2F1FD);
 const kMainFontColor = Color(0xff3B3B3B);
+const kTextFieldBgColor = Color(0xffEDEEF4);
