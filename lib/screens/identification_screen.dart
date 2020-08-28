@@ -14,7 +14,7 @@ class IdentificationScreen extends StatelessWidget {
           children: [
             ClipPath(
               child: Container(
-                height: height * 0.32,
+                height: height * 0.28,
                 color: kCurveBgColor,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Center(
@@ -35,13 +35,25 @@ class IdentificationScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
+            Container(
+              margin: EdgeInsets.only(top: height * 0.05),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(height * 0.03),
+                color: kTextFieldBgColor,
+              ),
+              height: height * 0.16,
+              width: height * 0.16,
+              child: MaterialButton(
+                onPressed: null,
+                child: Image.asset('assets/images/upload.png'),
+              ),
+            ),
             //TODO:Add upload aadhar card button here
             Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 margin:
-                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
+                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
                 child: ButtonStyle(
                   text: 'Upload',
                 )),
