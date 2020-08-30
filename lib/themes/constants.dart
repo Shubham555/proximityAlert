@@ -19,3 +19,8 @@ const kguideText = TextStyle(
 const kCurveBgColor = Color(0xffF2F1FD);
 const kMainFontColor = Color(0xff3B3B3B);
 const kTextFieldBgColor = Color(0xffEDEEF4);
+const kScreenTitle = TextStyle(
+    fontFamily: 'GoogleSans',
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    fontSize: 22);

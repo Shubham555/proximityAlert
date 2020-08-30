@@ -1,3 +1,4 @@
+import 'package:covidScanner/models/bottom_navigation_bar.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/bg_clipper.dart';
@@ -48,7 +49,6 @@ class IdentificationScreen extends StatelessWidget {
                 child: Image.asset('assets/images/upload.png'),
               ),
             ),
-            //TODO:Add upload aadhar card button here
             Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.05),
@@ -56,6 +56,7 @@ class IdentificationScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
                 child: ButtonStyle(
                   text: 'Upload',
+                  goto: () => Navigator.pushNamed(context, 'BottomNavBar'),
                 )),
             Image.asset(
               'assets/images/adhar-card.png',

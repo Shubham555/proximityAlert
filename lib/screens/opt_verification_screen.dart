@@ -70,7 +70,8 @@ class OtpVerification extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
                 child: ButtonStyle(
                   text: 'Verify',
-                  goto: 'IdentificationScreen',
+                  goto: () =>
+                      Navigator.pushNamed(context, 'IdentificationScreen'),
                 )),
             Image.asset(
               'assets/images/otp.png',

@@ -54,7 +54,8 @@ class LoginScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
                 child: ButtonStyle(
                   text: 'Next',
-                  goto: 'OtpVerificationScreen',
+                  goto: () =>
+                      Navigator.pushNamed(context, 'OtpVerificationScreen'),
                 )),
             Image.asset(
               'assets/images/otp-sent.png',

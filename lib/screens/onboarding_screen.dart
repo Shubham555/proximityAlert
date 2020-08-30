@@ -47,7 +47,7 @@ class OnBoardingScreen extends StatelessWidget {
               child: Center(
                 child: ButtonStyle(
                   text: 'Get Started',
-                  goto: 'LoginScreen',
+                  goto: () => Navigator.pushNamed(context, 'LoginScreen'),
                 ),
               ),
             ),

@@ -3,7 +3,7 @@ import 'constants.dart';
 
 class ButtonStyle extends StatelessWidget {
   ButtonStyle({this.text, this.goto});
-  final String goto;
+  final Function goto;
   final String text;
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ButtonStyle extends StatelessWidget {
         height: 52,
         minWidth: double.infinity,
         color: kPrimaryColor,
-        onPressed: () => {Navigator.pushNamed(context, goto)},
+        onPressed: goto,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Text(
           text,
