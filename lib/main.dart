@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Covid Scanner',
+      title: 'Proximity Alert',
       initialRoute: '/',
       routes: {
         '/': (context) => OnBoardingScreen(),

@@ -4,6 +4,9 @@ import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 
 class LoginScreen extends StatelessWidget {
+  String phoneNumber;
+  String smsCode;
+  String verificationId;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

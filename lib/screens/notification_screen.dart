@@ -16,6 +16,7 @@ class NotificationScreen extends StatelessWidget {
                 style: kScreenTitle,
                 textAlign: TextAlign.center,
               ),
+              Expanded(child: null)
             ],
           ),
         ),

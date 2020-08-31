@@ -54,7 +54,7 @@ class OtpVerification extends StatelessWidget {
                     }
                   },
                   pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.circle,
+                      shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(20),
                       disabledColor: kTextFieldBgColor,
                       activeFillColor: Colors.amber),
