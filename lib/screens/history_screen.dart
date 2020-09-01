@@ -3,6 +3,7 @@ import 'package:covidScanner/themes/constants.dart';
 import 'package:covidScanner/models/location_history.dart';
 
 class HistoryScreen extends StatelessWidget {
+  static const routeName = "/HistoryScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

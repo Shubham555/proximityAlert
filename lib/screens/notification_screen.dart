@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/constants.dart';
 
 class NotificationScreen extends StatelessWidget {
-  final id = "NotificationScreen";
+  static const routeName = "/NotificationScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

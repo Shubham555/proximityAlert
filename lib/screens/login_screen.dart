@@ -1,15 +1,31 @@
+import 'package:covidScanner/screens/identification_screen.dart';
+import 'package:covidScanner/screens/opt_verification_screen.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
+import 'package:covidScanner/services/authservice.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatelessWidget {
-  String phoneNumber;
-  String smsCode;
+class LoginScreen extends StatefulWidget {
+  static const routeName = "/LoginScreen";
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String phoneNo;
+
   String verificationId;
+
+  bool codeSent = false;
+
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    AuthService authProvider = Provider.of(context);
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -41,12 +57,17 @@ class LoginScreen extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.only(top: height * 0.02),
                 width: MediaQuery.of(context).size.width * 0.6,
-                child: TextField(
+                child: TextFormField(
                   maxLength: 10,
                   decoration: InputDecoration(
                     prefixText: "+91",
                   ),
                   keyboardType: TextInputType.phone,
+                  onChanged: (val) {
+                    setState(() {
+                      this.phoneNo = "+91" + val;
+                    });
+                  },
                 ),
               ),
             ),
@@ -57,8 +78,14 @@ class LoginScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
                 child: ButtonStyle(
                   text: 'Next',
-                  goto: () =>
-                      Navigator.pushNamed(context, 'OtpVerificationScreen'),
+                  goto: () {
+                    verifyPhone(this.phoneNo);
+                    authProvider.isAuthenticated
+                        ? Navigator.pushNamed(
+                            context, IdentificationScreen.routeName)
+                        : Navigator.pushNamed(
+                            context, OtpVerification.routeName);
+                  },
                 )),
             Image.asset(
               'assets/images/otp-sent.png',
@@ -67,5 +94,37 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Future<void> verifyPhone(phoneNo) async {
+    final PhoneVerificationCompleted verified = (AuthCredential authResult) {
+      AuthService().signIn(authResult);
+    };
+
+    final PhoneVerificationFailed verificationfailed =
+        (FirebaseAuthException authException) {
+      print('${authException.message}');
+    };
+
+    final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
+      this.verificationId = verId;
+      // setState(() {
+      this.codeSent = true;
+      Navigator.pushNamed(context, OtpVerification.routeName,
+          arguments: this.verificationId);
+      // });
+    };
+
+    final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
+      this.verificationId = verId;
+    };
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNo,
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: verified,
+        verificationFailed: verificationfailed,
+        codeSent: smsSent,
+        codeAutoRetrievalTimeout: autoTimeout);
   }
 }

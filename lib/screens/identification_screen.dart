@@ -5,6 +5,7 @@ import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 
 class IdentificationScreen extends StatelessWidget {
+  static const routeName = "/IdentificationScreen";
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -56,7 +57,8 @@ class IdentificationScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
                 child: ButtonStyle(
                   text: 'Upload',
-                  goto: () => Navigator.pushNamed(context, 'BottomNavBar'),
+                  goto: () =>
+                      Navigator.pushNamed(context, MyBottomNavBar.routeName),
                 )),
             Image.asset(
               'assets/images/adhar-card.png',

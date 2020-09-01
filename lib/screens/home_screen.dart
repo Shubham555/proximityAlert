@@ -3,14 +3,19 @@ import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/button_style.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:covidScanner/services/authservice.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  Future ScanQr() async {
+  static const routeName = "/HomeScreen";
+  Future scanQr() async {
     String cameraScanResult = await scanner.scan();
   }
 
   @override
   Widget build(BuildContext context) {
+    AuthService authProvider = Provider.of(context);
+    print(authProvider.user);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -51,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: width * 0.05),
               child: ButtonStyle(
                 text: "Scan Now",
-                goto: () => ScanQr(),
+                goto: () => scanQr(),
               ),
             )
           ],
