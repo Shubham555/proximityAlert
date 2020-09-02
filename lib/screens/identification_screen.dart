@@ -1,11 +1,31 @@
+import 'dart:io';
+
 import 'package:covidScanner/models/bottom_navigation_bar.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
+import 'package:image_picker/image_picker.dart';
 
-class IdentificationScreen extends StatelessWidget {
+class IdentificationScreen extends StatefulWidget {
   static const routeName = "/IdentificationScreen";
+
+  @override
+  _IdentificationScreenState createState() => _IdentificationScreenState();
+}
+
+class _IdentificationScreenState extends State<IdentificationScreen> {
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -46,7 +66,7 @@ class IdentificationScreen extends StatelessWidget {
               height: height * 0.16,
               width: height * 0.16,
               child: MaterialButton(
-                onPressed: null,
+                onPressed: getImage,
                 child: Image.asset('assets/images/upload.png'),
               ),
             ),
@@ -56,10 +76,10 @@ class IdentificationScreen extends StatelessWidget {
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
                 child: ButtonStyle(
-                  text: 'Upload',
-                  goto: () =>
-                      Navigator.pushNamed(context, MyBottomNavBar.routeName),
-                )),
+                    text: 'Upload',
+                    goto: () {
+                      Navigator.pushNamed(context, MyBottomNavBar.routeName);
+                    })),
             Image.asset(
               'assets/images/adhar-card.png',
             )

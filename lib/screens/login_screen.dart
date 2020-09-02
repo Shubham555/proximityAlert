@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> verifyPhone(phoneNo) async {
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
       AuthService().signIn(authResult);
+      Navigator.pushNamed(context, IdentificationScreen.routeName);
     };
 
     final PhoneVerificationFailed verificationfailed =
@@ -102,16 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
-      this.verificationId = verId;
+      verificationId = verId;
       // setState(() {
-      this.codeSent = true;
+      codeSent = true;
       Navigator.pushNamed(context, OtpVerification.routeName,
-          arguments: this.verificationId);
+          arguments: verificationId);
       // });
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
-      this.verificationId = verId;
+      verificationId = verId;
     };
 
     await FirebaseAuth.instance.verifyPhoneNumber(

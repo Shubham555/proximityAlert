@@ -7,11 +7,18 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:provider/provider.dart';
 
-class OtpVerification extends StatelessWidget {
+class OtpVerification extends StatefulWidget {
   static const routeName = "/OtpVerificationScreen";
+
+  @override
+  _OtpVerificationState createState() => _OtpVerificationState();
+}
+
+class _OtpVerificationState extends State<OtpVerification> {
+  final myController = TextEditingController();
+  String userOtp = "";
   @override
   Widget build(BuildContext context) {
-    String userOtp = "";
     final String verId = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -47,9 +54,12 @@ class OtpVerification extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                 child: PinCodeTextField(
+                  controller: myController,
                   appContext: context,
                   onChanged: (String otp) {
-                    userOtp = otp;
+                    setState(() {
+                      userOtp = otp;
+                    });
                   },
                   length: 6,
                   obsecureText: false,
@@ -78,6 +88,7 @@ class OtpVerification extends StatelessWidget {
               child: ButtonStyle(
                 text: 'Verify',
                 goto: () {
+                  print(userOtp);
                   AuthService().signInWithOTP(userOtp, verId);
                   AuthService authProvider = Provider.of(context);
                   authProvider.isAuthenticated

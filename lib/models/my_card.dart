@@ -10,7 +10,7 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(10),
       child: Card(
         margin: EdgeInsets.only(bottom: 15),
         color: first ? kPrimaryColor : kTextFieldBgColor,
