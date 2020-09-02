@@ -1,7 +1,5 @@
 import 'package:covidScanner/screens/identification_screen.dart';
 import 'package:covidScanner/themes/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
@@ -79,8 +77,8 @@ class OtpVerification extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
               child: ButtonStyle(
                 text: 'Verify',
-                goto: () async {
-                  await AuthService().signInWithOTP(userOtp, verId);
+                goto: () {
+                  AuthService().signInWithOTP(userOtp, verId);
                   AuthService authProvider = Provider.of(context);
                   authProvider.isAuthenticated
                       ? Navigator.pushNamed(

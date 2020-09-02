@@ -1,16 +1,12 @@
-import 'package:covidScanner/screens/identification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:covidScanner/models/bottom_navigation_bar.dart';
-import 'package:covidScanner/screens/onboarding_screen.dart';
-import 'package:covidScanner/screens/login_screen.dart';
 
 class AuthService with ChangeNotifier {
   String phoneNo;
   String verificationId;
   bool codeSent = false;
-  var signInSuccess;
+
   //Handles Auth
   User user;
   StreamSubscription userAuthSub;

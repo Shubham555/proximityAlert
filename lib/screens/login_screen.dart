@@ -80,11 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: 'Next',
                   goto: () {
                     verifyPhone(this.phoneNo);
-                    authProvider.isAuthenticated
-                        ? Navigator.pushNamed(
-                            context, IdentificationScreen.routeName)
-                        : Navigator.pushNamed(
-                            context, OtpVerification.routeName);
                   },
                 )),
             Image.asset(

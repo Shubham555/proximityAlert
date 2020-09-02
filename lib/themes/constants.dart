@@ -26,8 +26,9 @@ const kScreenTitle = TextStyle(
     fontSize: 22);
 const kHistoryTitle = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 20,
+  fontSize: 18,
 );
 const kHistorySubtitle = TextStyle(
   fontSize: 15,
+  fontWeight: FontWeight.w300,
 );
