@@ -19,14 +19,14 @@ class MyCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                loc.location != null ? loc.location : "yo",
+                loc.location != null ? loc.location : " ",
                 textAlign: TextAlign.left,
                 style: first
                     ? kHistoryTitle.copyWith(color: Colors.white)
                     : kHistoryTitle,
               ),
               Text(
-                loc.sublocation != null ? loc.sublocation : "yo",
+                loc.sublocation != null ? loc.sublocation : " ",
                 style: first
                     ? kHistorySubtitle.copyWith(color: Colors.white)
                     : kHistorySubtitle,
@@ -35,7 +35,7 @@ class MyCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    loc.time != null ? loc.time : "yo",
+                    loc.time != null ? loc.time : " ",
                     style: first
                         ? kHistorySubtitle.copyWith(
                             fontSize: 13, color: Colors.white)

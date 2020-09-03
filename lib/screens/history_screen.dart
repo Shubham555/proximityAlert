@@ -18,7 +18,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     Future.delayed(Duration.zero).then((value) {
       _isInit = true;
-      Provider.of<LocationHistory>(context).getLocationHistory().then((value) {
+      AuthService authProvider = Provider.of(context);
+      Provider.of<LocationHistory>(context)
+          .getLocationHistory(authProvider.user.uid)
+          .then((value) {
         setState(() {
           _isInit = false;
         });
@@ -62,14 +65,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         height: 400,
                         child: Consumer<LocationHistory>(
                           builder: (context, l, child) {
-                            return ListView.builder(
-                                itemCount: l.locationHistory.length,
-                                itemBuilder: (context, index) {
-                                  return MyCard(
-                                    loc: l.locationHistory[index],
-                                    first: index == 0,
-                                  );
-                                });
+                            return l.locationHistory.length == 0
+                                ? Center(
+                                    child: Text(
+                                      "Your History is Empty",
+                                      style: kHistoryTitle,
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: l.locationHistory.length,
+                                    itemBuilder: (context, index) {
+                                      return MyCard(
+                                        loc: l.locationHistory[index],
+                                        first: index == 0,
+                                      );
+                                    });
                           },
                         ),
                       ),
