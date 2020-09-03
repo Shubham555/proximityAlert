@@ -18,7 +18,7 @@ class LocationHistory extends ChangeNotifier {
 
   Future<dynamic> getLocationHistory(String uid) async {
     const String url =
-        "https://noname-23981.firebaseio.com/location-history.json";
+        "https://proximity-c8d3a.firebaseio.com/location-history.json";
     var response = await http.get(url);
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
     locationHistory = [];

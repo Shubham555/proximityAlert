@@ -15,6 +15,7 @@ class OtpVerification extends StatefulWidget {
 }
 
 class _OtpVerificationState extends State<OtpVerification> {
+  final GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
   final myController = TextEditingController();
   String userOtp = "";
   @override
@@ -22,91 +23,96 @@ class _OtpVerificationState extends State<OtpVerification> {
     final String verId = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+        key: key,
         body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipPath(
-              child: Container(
-                height: height * 0.3,
-                color: kCurveBgColor,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ClipPath(
+                  child: Container(
+                    height: height * 0.3,
+                    color: kCurveBgColor,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                      child: Text(
+                        "OTP\nVerification",
+                        style: kRegisterTitle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  clipper: BottomClipper(),
+                ),
+                Container(
+                  padding: EdgeInsets.all(30),
                   child: Text(
-                    "OTP\nVerification",
-                    style: kRegisterTitle,
-                    textAlign: TextAlign.center,
+                    "Enter your OTP here",
+                    style: kguideText,
                   ),
                 ),
-              ),
-              clipper: BottomClipper(),
-            ),
-            Container(
-              padding: EdgeInsets.all(30),
-              child: Text(
-                "Enter your OTP here",
-                style: kguideText,
-              ),
-            ),
 
-            Form(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-                child: PinCodeTextField(
-                  controller: myController,
-                  appContext: context,
-                  onChanged: (String otp) {
-                    setState(() {
-                      userOtp = otp;
-                    });
-                  },
-                  length: 6,
-                  obsecureText: false,
-                  animationType: AnimationType.fade,
-                  validator: (v) {
-                    if (v.length < 6) {
-                      return "OTP too short!";
-                    } else {
-                      return null;
-                    }
-                  },
-                  pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(20),
-                      disabledColor: kTextFieldBgColor,
-                      activeFillColor: Colors.amber),
+                Form(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 30),
+                    child: PinCodeTextField(
+                      controller: myController,
+                      appContext: context,
+                      onChanged: (String otp) {
+                        setState(() {
+                          userOtp = otp;
+                        });
+                      },
+                      length: 6,
+                      obsecureText: false,
+                      animationType: AnimationType.fade,
+                      validator: (v) {
+                        if (v.length < 6) {
+                          return "OTP too short!";
+                        } else {
+                          return null;
+                        }
+                      },
+                      pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(20),
+                          disabledColor: kTextFieldBgColor,
+                          activeFillColor: Colors.amber),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //Enter OTP here
+                //Enter OTP here
 
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.05),
-              margin: EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
-              child: ButtonStyle(
-                text: 'Verify',
-                goto: () {
-                  print(userOtp);
-                  AuthService().signInWithOTP(userOtp, verId);
-                  AuthService authProvider = Provider.of(context);
-                  authProvider.isAuthenticated
-                      ? Navigator.pushNamed(
-                          context, IdentificationScreen.routeName)
-                      : SnackBar(
-                          content: Text("Wrong OTP"),
-                          duration: Duration(seconds: 5),
-                        );
-                },
-              ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  margin:
+                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
+                  child: ButtonStyle(
+                    text: 'Verify',
+                    goto: () {
+                      print(userOtp);
+                      AuthService().signInWithOTP(userOtp, verId);
+                      bool authProvider =
+                          Provider.of<AuthService>(context).isSuccess;
+                      authProvider
+                          ? Navigator.pushNamed(
+                              context, IdentificationScreen.routeName)
+                          : key.currentContext.showSnackBar(
+                              SnackBar(
+                                content: Text("Wrong OTP"),
+                                duration: Duration(seconds: 5),
+                              ),
+                            );
+                    },
+                  ),
+                ),
+                Image.asset(
+                  'assets/images/otp.png',
+                )
+              ],
             ),
-            Image.asset(
-              'assets/images/otp.png',
-            )
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }

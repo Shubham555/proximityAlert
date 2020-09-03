@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "438115751472",
-    "firebase_url": "https://noname-23981.firebaseio.com",
-    "project_id": "noname-23981",
-    "storage_bucket": "noname-23981.appspot.com"
+    "project_number": "874811174640",
+    "firebase_url": "https://proximity-c8d3a.firebaseio.com",
+    "project_id": "proximity-c8d3a",
+    "storage_bucket": "proximity-c8d3a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438115751472:android:fad8f2ba5a9c6716ec3ff5",
+        "mobilesdk_app_id": "1:874811174640:android:435f76126bbe6eb4dbdc35",
         "android_client_info": {
-          "package_name": "com.outshade.proximityalert"
+          "package_name": "com.outshade.proximityAlert"
         }
       },
       "oauth_client": [
         {
-          "client_id": "438115751472-ten3r0u13hu9ia7livo5nbsqtjlqclt6.apps.googleusercontent.com",
+          "client_id": "874811174640-ta9m5hg4dfk6kg2ngndm66ccmfefnmnu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.outshade.proximityalert",
+            "package_name": "com.outshade.proximityAlert",
             "certificate_hash": "7005d37d115638161b310ff2b44a432ec3750831"
           }
         },
         {
-          "client_id": "438115751472-ud48jb40qhbsdgrkbrnmmtltgok3q7tn.apps.googleusercontent.com",
+          "client_id": "874811174640-rmn0ob7v3g2puucb2sql7fs2v8uvl88c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB5KI1sF6LSaqJubCAlV4PEwtMlqBCrANc"
+          "current_key": "AIzaSyArNC2iJYbLQwP9PVsODhWHohauFVoUDo8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "438115751472-ud48jb40qhbsdgrkbrnmmtltgok3q7tn.apps.googleusercontent.com",
+              "client_id": "874811174640-rmn0ob7v3g2puucb2sql7fs2v8uvl88c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

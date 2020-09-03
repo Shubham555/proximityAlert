@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   Future scanQr(String uid) async {
     const String url =
-        "https://noname-23981.firebaseio.com/location-history.json";
+        "https://proximity-c8d3a.firebaseio.com/location-history.json";
     String cameraScanResult = await scanner.scan();
     var now = DateTime.now().toString();
 

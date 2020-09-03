@@ -7,6 +7,7 @@ class AuthService with ChangeNotifier {
   String phoneNo;
   String verificationId;
   bool codeSent = false;
+  bool isSuccess = false;
 
   //Handles Auth
   User user;
@@ -37,9 +38,12 @@ class AuthService with ChangeNotifier {
       var firebaseUser =
           await FirebaseAuth.instance.signInWithCredential(authCreds);
       print("Login success");
+      isSuccess = true;
       print(firebaseUser.user);
     } catch (e) {
       print("Login not successful");
+      isSuccess = false;
+      notifyListeners();
     }
   }
 
