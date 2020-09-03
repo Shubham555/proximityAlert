@@ -43,8 +43,8 @@ class AuthService with ChangeNotifier {
     } catch (e) {
       print("Login not successful");
       isSuccess = false;
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   signInWithOTP(smsCode, verificationId) {

@@ -98,11 +98,8 @@ class _OtpVerificationState extends State<OtpVerification> {
                       authProvider
                           ? Navigator.pushNamed(
                               context, IdentificationScreen.routeName)
-                          : key.currentContext.showSnackBar(
-                              SnackBar(
-                                content: Text("Wrong OTP"),
-                                duration: Duration(seconds: 5),
-                              ),
+                          : AlertDialog(
+                              title: Text("Wrong Otp"),
                             );
                     },
                   ),

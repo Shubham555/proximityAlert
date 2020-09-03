@@ -1,8 +1,10 @@
 import 'package:covidScanner/screens/login_screen.dart';
+import 'package:covidScanner/services/authservice.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
+import 'package:provider/provider.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static const routeName = "/OnBoardingScreen";
@@ -50,10 +52,11 @@ class OnBoardingScreen extends StatelessWidget {
                     EdgeInsets.fromLTRB(30, height * 0.04, 30, height * 0.03),
                 child: Center(
                   child: ButtonStyle(
-                    text: 'Get Started',
-                    goto: () =>
-                        Navigator.pushNamed(context, LoginScreen.routeName),
-                  ),
+                      text: 'Get Started',
+                      goto: () {
+                        Provider.of<AuthService>(context).signOut();
+                        Navigator.pushNamed(context, LoginScreen.routeName);
+                      }),
                 ),
               ),
             ],

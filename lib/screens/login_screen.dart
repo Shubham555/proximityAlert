@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ButtonStyle(
                   text: 'Next',
                   goto: () {
-                    authProvider.signOut();
                     verifyPhone(this.phoneNo);
                   },
                 )),

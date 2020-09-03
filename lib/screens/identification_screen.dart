@@ -18,13 +18,11 @@ class IdentificationScreen extends StatefulWidget {
 }
 
 class _IdentificationScreenState extends State<IdentificationScreen> {
-  String uid = FirebaseAuth.instance.currentUser.uid;
-
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
   final picker = ImagePicker();
 
-  Future getnUploadImage() async {
+  Future getnUploadImage(String uid) async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(pickedFile.path);
@@ -98,7 +96,10 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               height: height * 0.16,
               width: height * 0.16,
               child: MaterialButton(
-                onPressed: getnUploadImage,
+                onPressed: () {
+                  String uid = Provider.of<AuthService>(context).user.uid;
+                  getnUploadImage(uid);
+                },
                 child: Image.asset('assets/images/upload.png'),
               ),
             ),
