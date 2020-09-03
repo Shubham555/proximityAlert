@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:covidScanner/models/notification_list.dart';
-import 'package:covidScanner/models/my_card.dart';
+
+import 'package:covidScanner/models/my_notification_card.dart';
 
 class NotificationScreen extends StatelessWidget {
   static const routeName = "/NotificationScreen";
@@ -27,7 +28,7 @@ class NotificationScreen extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: notificationHistory.length,
                     itemBuilder: (context, index) {
-                      return MyCard(
+                      return MyNotificationCard(
                         title: "Proximity Alert",
                         subTitle:
                             "You might have encountered Covid +ve person at ${notificationHistory[index]['location']}. Consider a testing done",

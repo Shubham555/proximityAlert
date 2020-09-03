@@ -1,3 +1,4 @@
+import 'package:covidScanner/models/location_history.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<LocationHistory>(
+          create: (context) => LocationHistory(),
+        ),
         ChangeNotifierProvider<AuthService>(create: (context) => AuthService()),
       ],
       child: MaterialApp(

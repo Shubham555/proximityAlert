@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/constants.dart';
-import 'location_history.dart';
 
-class MyCard extends StatelessWidget {
-  MyCard({this.loc, this.first});
-  LocationHistory loc;
-  bool first;
+class MyNotificationCard extends StatelessWidget {
+  MyNotificationCard({this.title, this.subTitle, this.time, this.first});
+  final title;
+  final String subTitle;
+  final String time;
+  bool first = false;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -19,14 +20,14 @@ class MyCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                loc.location != null ? loc.location : "yo",
+                title,
                 textAlign: TextAlign.left,
                 style: first
                     ? kHistoryTitle.copyWith(color: Colors.white)
                     : kHistoryTitle,
               ),
               Text(
-                loc.sublocation != null ? loc.sublocation : "yo",
+                subTitle,
                 style: first
                     ? kHistorySubtitle.copyWith(color: Colors.white)
                     : kHistorySubtitle,
@@ -35,7 +36,7 @@ class MyCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    loc.time != null ? loc.time : "yo",
+                    time,
                     style: first
                         ? kHistorySubtitle.copyWith(
                             fontSize: 13, color: Colors.white)
