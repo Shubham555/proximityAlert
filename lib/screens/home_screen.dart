@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "/HomeScreen";
+
   Future scanQr() async {
+    const String url = "https://noname-23981.firebaseio.com/";
     String cameraScanResult = await scanner.scan();
   }
 
