@@ -1,4 +1,5 @@
 import 'package:covidScanner/models/location_history.dart';
+import 'package:covidScanner/screens/onboarding_dark.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +28,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LocationHistory>(
-          create: (context) => LocationHistory(),
-        ),
+        // ChangeNotifierProvider<LocationHistory>(
+        //   create: (context) => LocationHistory(),
+        // ),
         ChangeNotifierProvider<AuthService>(create: (context) => AuthService()),
       ],
       child: MaterialApp(
+        darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         initialRoute: AuthService().isAuthenticated
             ? MyBottomNavBar.routeName
             : OnBoardingScreen.routeName,
         routes: {
+          OnBoardingScreenDark.routeName: (context) => OnBoardingScreenDark(),
           OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           OtpVerification.routeName: (context) => OtpVerification(),

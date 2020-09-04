@@ -4,6 +4,7 @@ import 'package:covidScanner/themes/constants.dart';
 import 'package:covidScanner/models/location_history.dart';
 import 'package:covidScanner/models/my_card.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HistoryScreen extends StatefulWidget {
   static const routeName = "/HistoryScreen";
@@ -13,81 +14,90 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  var _isInit = true;
-  @override
-  void initState() {
-    Future.delayed(Duration.zero).then((value) {
-      _isInit = true;
-      AuthService authProvider = Provider.of(context);
-      Provider.of<LocationHistory>(context)
-          .getLocationHistory(authProvider.user.uid)
-          .then((value) {
-        setState(() {
-          _isInit = false;
-        });
-      });
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    String uid = Provider.of<AuthService>(context).user.uid;
     return Scaffold(
-      body: _isInit
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SafeArea(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "History",
-                      style: kScreenTitle,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Today",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "GoogleSans"),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 400,
-                        child: Consumer<LocationHistory>(
-                          builder: (context, l, child) {
-                            return l.locationHistory.length == 0
-                                ? Center(
-                                    child: Text(
-                                      "Your History is Empty",
-                                      style: kHistoryTitle,
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    itemCount: l.locationHistory.length,
-                                    itemBuilder: (context, index) {
-                                      return MyCard(
-                                        loc: l.locationHistory[index],
-                                        first: index == 0,
-                                      );
-                                    });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+      body: SafeArea(
+        child: Container(
+          height: 800,
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "History",
+                style: kScreenTitle,
               ),
-            ),
+              SizedBox(
+                height: 8,
+              ),
+              _buildBody(context, uid),
+            ],
+          ),
+        ),
+      ),
     );
   }
+}
+
+bool first = true;
+Widget _buildBody(BuildContext context, String uid) {
+  return StreamBuilder<QuerySnapshot>(
+    stream: FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .collection('location-history')
+        .orderBy('dateTime')
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+
+      return _buildList(context, snapshot.data.docs);
+    },
+  );
+}
+
+Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+  return ListView(
+    shrinkWrap: true,
+    padding: const EdgeInsets.only(top: 20.0),
+    children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+  );
+}
+
+Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+  final locationHistory = LocationHistory.fromSnapshot(data);
+
+  return MyCard(
+    first: locationHistory.time == DateTime.now().toString() ? true : false,
+    loc: locationHistory,
+  );
+}
+
+Widget _locationList(BuildContext context, DocumentSnapshot data) {
+  return Expanded(
+    child: SizedBox(
+      height: 400,
+      child: Consumer<LocationHistory>(
+        builder: (context, l, child) {
+          return l.locationHistory.length == 0
+              ? Center(
+                  child: Text(
+                    "Your History is Empty",
+                    style: kHistoryTitle,
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: l.locationHistory.length,
+                  itemBuilder: (context, index) {
+                    return MyCard(
+                      loc: l.locationHistory[index],
+                      first: index == 0,
+                    );
+                  });
+        },
+      ),
+    ),
+  );
 }

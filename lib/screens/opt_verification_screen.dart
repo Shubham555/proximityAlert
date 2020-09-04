@@ -93,9 +93,10 @@ class _OtpVerificationState extends State<OtpVerification> {
                     goto: () {
                       print(userOtp);
                       AuthService().signInWithOTP(userOtp, verId);
-                      bool authProvider =
-                          Provider.of<AuthService>(context).isSuccess;
-                      authProvider
+
+                      AuthService authProvider =
+                          Provider.of<AuthService>(context, listen: true);
+                      authProvider.isAuthenticated
                           ? Navigator.pushNamed(
                               context, IdentificationScreen.routeName)
                           : AlertDialog(

@@ -7,7 +7,7 @@ class AuthService with ChangeNotifier {
   String phoneNo;
   String verificationId;
   bool codeSent = false;
-  bool isSuccess = false;
+  bool isSuccess;
 
   //Handles Auth
   User user;
@@ -30,6 +30,7 @@ class AuthService with ChangeNotifier {
   //Sign out
   signOut() {
     FirebaseAuth.instance.signOut();
+    isSuccess = false;
   }
 
   //SignIn
@@ -41,7 +42,7 @@ class AuthService with ChangeNotifier {
       isSuccess = true;
       print(firebaseUser.user);
     } catch (e) {
-      print("Login not successful");
+      print(e);
       isSuccess = false;
     }
     notifyListeners();

@@ -6,8 +6,8 @@ import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 import 'package:provider/provider.dart';
 
-class OnBoardingScreen extends StatelessWidget {
-  static const routeName = "/OnBoardingScreen";
+class OnBoardingScreenDark extends StatelessWidget {
+  static const routeName = "/OnBoardingScreenDark";
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

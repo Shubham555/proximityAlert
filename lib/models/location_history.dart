@@ -1,40 +1,20 @@
-import 'dart:convert';
-import 'package:covidScanner/services/authservice.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LocationHistory extends ChangeNotifier {
-  LocationHistory({
-    this.location,
-    this.sublocation,
-    this.time,
-  });
+class LocationHistory {
   final String location;
   final String sublocation;
-
+  final DocumentReference reference;
   final String time;
   List<LocationHistory> locationHistory = [];
 
-  Future<dynamic> getLocationHistory(String uid) async {
-    const String url =
-        "https://proximity-c8d3a.firebaseio.com/location-history.json";
-    var response = await http.get(url);
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    locationHistory = [];
-    extractedData.forEach((key, value) {
-      if (value['uid'] == uid) {
-        locationHistory.add(
-          LocationHistory(
-            location: value['location'],
-            sublocation: value['sublocation'],
-            time: value['dateTime'],
-          ),
-        );
-      }
-    });
-    notifyListeners();
+  LocationHistory.fromMap(Map<String, dynamic> map, {this.reference})
+      : assert(map['location'] != null),
+        assert(map['sublocation'] != null),
+        assert(map['dateTime'] != null),
+        location = map['location'],
+        sublocation = map['sublocation'],
+        time = map['dateTime'];
 
-    return 1;
-  }
+  LocationHistory.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }
