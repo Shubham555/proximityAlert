@@ -48,7 +48,7 @@ Widget _buildBody(BuildContext context, String uid) {
         .collection('user')
         .doc(uid)
         .collection('location-history')
-        .orderBy('dateTime')
+        .orderBy('dateTime', descending: true)
         .snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
@@ -62,17 +62,18 @@ Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
   return ListView(
     shrinkWrap: true,
     padding: const EdgeInsets.only(top: 20.0),
-    children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+    children:
+        snapshot.map((data) => _buildListItem(context, data))?.toList() ?? [],
   );
 }
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final locationHistory = LocationHistory.fromSnapshot(data);
-
+  DateTime time = DateTime.fromMicrosecondsSinceEpoch(
+      locationHistory.time.microsecondsSinceEpoch);
   return MyCard(
-    first: locationHistory.time.substring(0, 11) ==
-        DateTime.now().toString().substring(0, 11),
-    loc: locationHistory,
+    first: time.difference(DateTime.now()).inDays == 0 ? true : false,
+    location: locationHistory,
   );
 }
 
@@ -93,7 +94,7 @@ Widget _locationList(BuildContext context, DocumentSnapshot data) {
                   itemCount: l.locationHistory.length,
                   itemBuilder: (context, index) {
                     return MyCard(
-                      loc: l.locationHistory[index],
+                      location: l.locationHistory[index],
                       first: index == 0,
                     );
                   });

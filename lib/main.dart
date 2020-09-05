@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AuthService>(create: (context) => AuthService()),
       ],
       child: MaterialApp(
-        darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         initialRoute: AuthService().isAuthenticated
             ? MyBottomNavBar.routeName

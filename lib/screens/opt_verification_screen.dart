@@ -88,12 +88,11 @@ class _OtpVerificationState extends State<OtpVerification> {
                       horizontal: MediaQuery.of(context).size.width * 0.05),
                   margin:
                       EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
-                  child: ButtonStyle(
+                  child: MyButtonStyle(
                     text: 'Verify',
-                    goto: () {
+                    goto: () async {
                       print(userOtp);
-                      AuthService().signInWithOTP(userOtp, verId);
-
+                      await AuthService().signInWithOTP(userOtp, verId);
                       AuthService authProvider =
                           Provider.of<AuthService>(context, listen: true);
                       authProvider.isAuthenticated

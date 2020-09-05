@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'package:covidScanner/services/authservice.dart';
 
-class ButtonStyle extends StatelessWidget {
-  ButtonStyle({this.text, this.goto});
+class MyButtonStyle extends StatelessWidget {
+  MyButtonStyle({this.text, this.goto});
   final Function goto;
   final String text;
   @override

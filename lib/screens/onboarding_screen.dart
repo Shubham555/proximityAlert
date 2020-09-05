@@ -52,7 +52,7 @@ class OnBoardingScreen extends StatelessWidget {
                 margin:
                     EdgeInsets.fromLTRB(30, height * 0.04, 30, height * 0.03),
                 child: Center(
-                  child: ButtonStyle(
+                  child: MyButtonStyle(
                       text: 'Get Started',
                       goto: () {
                         Provider.of<AuthService>(context).signOut();

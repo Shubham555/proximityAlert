@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.045),
-                child: ButtonStyle(
+                child: MyButtonStyle(
                   text: 'Next',
                   goto: () {
                     verifyPhone(this.phoneNo);

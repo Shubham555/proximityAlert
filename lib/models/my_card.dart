@@ -3,11 +3,14 @@ import 'package:covidScanner/themes/constants.dart';
 import 'location_history.dart';
 
 class MyCard extends StatelessWidget {
-  MyCard({this.loc, this.first});
-  LocationHistory loc;
-  bool first;
+  MyCard({this.location, this.first});
+  final LocationHistory location;
+  final bool first;
   @override
   Widget build(BuildContext context) {
+    print(location.location);
+    List<String> loc = location.location.split(',');
+    print(loc);
     return Card(
       margin: EdgeInsets.only(bottom: 15),
       color: first ? kPrimaryColor : kTextFieldBgColor,
@@ -17,14 +20,14 @@ class MyCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              loc.location != null ? loc.location : " ",
+              loc[0] != null ? loc[0] : " ",
               textAlign: TextAlign.left,
               style: first
                   ? kHistoryTitle.copyWith(color: Colors.white)
                   : kHistoryTitle,
             ),
             Text(
-              loc.sublocation != null ? loc.sublocation : " ",
+              loc[1] != null ? loc[1] : " ",
               style: first
                   ? kHistorySubtitle.copyWith(color: Colors.white)
                   : kHistorySubtitle,
@@ -33,7 +36,9 @@ class MyCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  loc.time != null ? loc.time.substring(0, 16) : " ",
+                  location.time.toString() != null
+                      ? location.time.toString().substring(0, 16)
+                      : " ",
                   style: first
                       ? kHistorySubtitle.copyWith(
                           fontSize: 13, color: Colors.white)

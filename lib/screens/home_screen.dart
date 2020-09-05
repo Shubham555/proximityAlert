@@ -4,34 +4,19 @@ import 'package:covidScanner/themes/button_style.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:covidScanner/services/authservice.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "/HomeScreen";
   var db = FirebaseFirestore.instance;
   Future scanQr(String uid) async {
-    // const String url =
-    //     "https://proximity-c8d3a.firebaseio.com/location-history.json";
     String cameraScanResult = await scanner.scan();
-    var now = DateTime.now().toString();
+    var now = DateTime.now();
     var locationRef =
         db.collection('user').doc(uid).collection('location-history');
-    List loc = cameraScanResult.split("\n");
-    print(loc);
-    locationRef.add({
-      'uid': uid,
-      'location': loc[0],
-      'sublocation': loc[1],
-      'dateTime': now
-    });
-    // http.post(url,
-    //     body: json.encode({
-    //       'uid': uid,
-    //       'location': loc[0],
-    //       'sublocation': loc[1],
-    //       'dateTime': now
-    //     }));
+
+    locationRef.add({'location': cameraScanResult, 'dateTime': now});
   }
 
   @override
@@ -76,7 +61,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: width * 0.05),
-              child: ButtonStyle(
+              child: MyButtonStyle(
                 text: "Scan Now",
                 goto: () => scanQr(authProvider.user.uid),
               ),

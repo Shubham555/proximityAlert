@@ -108,7 +108,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
-                child: ButtonStyle(
+                child: MyButtonStyle(
                     text: 'Upload',
                     goto: () {
                       Navigator.pushNamed(context, MyBottomNavBar.routeName);
