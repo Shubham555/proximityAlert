@@ -70,7 +70,8 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final locationHistory = LocationHistory.fromSnapshot(data);
 
   return MyCard(
-    first: locationHistory.time == DateTime.now().toString() ? true : false,
+    first: locationHistory.time.substring(0, 11) ==
+        DateTime.now().toString().substring(0, 11),
     loc: locationHistory,
   );
 }
