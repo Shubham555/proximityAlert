@@ -14,6 +14,8 @@ import 'models/bottom_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,15 +30,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider<LocationHistory>(
-        //   create: (context) => LocationHistory(),
-        // ),
         ChangeNotifierProvider<AuthService>(create: (context) => AuthService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home:
-            AuthService().user != null ? MyBottomNavBar() : OnBoardingScreen(),
+        home: OnBoardingScreen(),
         routes: {
           OnBoardingScreenDark.routeName: (context) => OnBoardingScreenDark(),
           OnBoardingScreen.routeName: (context) => OnBoardingScreen(),

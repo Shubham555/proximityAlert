@@ -1,3 +1,4 @@
+import 'package:covidScanner/models/bottom_navigation_bar.dart';
 import 'package:covidScanner/screens/login_screen.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:covidScanner/themes/constants.dart';
@@ -26,21 +27,9 @@ class OnBoardingScreen extends StatelessWidget {
                   style: kRegisterTitle.copyWith(fontSize: 45),
                 ),
               ),
-
               Container(
                   height: height * 0.4,
                   child: Image.asset('assets/images/logo.png')),
-              // ClipPath(
-              //   child: Container(
-              //     child: Image.asset(
-              //       'assets/images/get-started.png',
-              //       height: height * 0.4,
-              //     ),
-              //     height: height * 0.45,
-              //     color: kCurveBgColor,
-              //   ),
-              //   clipper: DoubleClipper(),
-              // ),
               Container(
                 margin: EdgeInsets.only(top: height * 0.08),
                 child: Center(
@@ -58,8 +47,11 @@ class OnBoardingScreen extends StatelessWidget {
                   child: MyButtonStyle(
                       text: 'Get Started',
                       goto: () {
-                        Provider.of<AuthService>(context).signOut();
-                        Navigator.pushNamed(context, LoginScreen.routeName);
+                        Provider.of<AuthService>(context).user != null
+                            ? Navigator.pushNamed(
+                                context, MyBottomNavBar.routeName)
+                            : Navigator.pushNamed(
+                                context, LoginScreen.routeName);
                       }),
                 ),
               ),

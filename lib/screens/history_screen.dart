@@ -64,6 +64,7 @@ Widget _buildBody(BuildContext context, String uid) {
 }
 
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+  l = snapshot;
   return ListView.builder(
       itemCount: snapshot.length,
       shrinkWrap: true,

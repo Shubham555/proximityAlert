@@ -13,6 +13,13 @@ class AuthService with ChangeNotifier {
   StreamSubscription userAuthSub;
   //Handles Auth
 
+  // Future<bool> getBoolValuesSF() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return bool
+  //   bool boolValue = prefs.getBool('boolValue');
+  //   return boolValue;
+  // }
+
   AuthService() {
     userAuthSub = FirebaseAuth.instance.authStateChanges().listen((newUser) {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $newUser');
@@ -22,6 +29,7 @@ class AuthService with ChangeNotifier {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $e');
     });
   }
+
   bool get isAuthenticated {
     return user != null;
   }
@@ -30,6 +38,7 @@ class AuthService with ChangeNotifier {
   signOut() {
     FirebaseAuth.instance.signOut();
     isSuccess = false;
+    // addBoolToSPfalse();
   }
 
   //SignIn
@@ -39,6 +48,7 @@ class AuthService with ChangeNotifier {
           await FirebaseAuth.instance.signInWithCredential(authCreds);
       print("Login success");
       isSuccess = true;
+      // addBoolToSPtrue();
       print(firebaseUser.user);
     } catch (e) {
       print(e);
@@ -54,3 +64,13 @@ class AuthService with ChangeNotifier {
     user != null ? MyBottomNavBar() : OnBoardingScreen();
   }
 }
+
+// addBoolToSPtrue() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   prefs.setBool('boolValue', true);
+// }
+
+// addBoolToSPfalse() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   prefs.setBool('boolValue', false);
+// }
