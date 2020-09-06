@@ -8,9 +8,8 @@ class MyCard extends StatelessWidget {
   final bool first;
   @override
   Widget build(BuildContext context) {
-    print(location.location);
     List<String> loc = location.location.split(',');
-    print(loc);
+
     return Card(
       margin: EdgeInsets.only(bottom: 15),
       color: first ? kPrimaryColor : kTextFieldBgColor,

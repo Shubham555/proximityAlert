@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: AuthService().isAuthenticated
-            ? MyBottomNavBar.routeName
-            : OnBoardingScreen.routeName,
+        home:
+            AuthService().user != null ? MyBottomNavBar() : OnBoardingScreen(),
         routes: {
           OnBoardingScreenDark.routeName: (context) => OnBoardingScreenDark(),
           OnBoardingScreen.routeName: (context) => OnBoardingScreen(),

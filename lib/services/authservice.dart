@@ -2,22 +2,21 @@ import 'package:covidScanner/models/bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:covidScanner/screens/onboarding_screen.dart';
 
 class AuthService with ChangeNotifier {
   String phoneNo;
   String verificationId;
   bool codeSent = false;
   bool isSuccess;
-
-  //Handles Auth
   User user;
   StreamSubscription userAuthSub;
+  //Handles Auth
 
   AuthService() {
     userAuthSub = FirebaseAuth.instance.authStateChanges().listen((newUser) {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $newUser');
       user = newUser;
-      // user!=null?MyBottomNavBar():
       notifyListeners();
     }, onError: (e) {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $e');
@@ -48,9 +47,10 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  signInWithOTP(smsCode, verificationId) {
+  signInWithOTP(smsCode, verificationId) async {
     AuthCredential authCreds = PhoneAuthProvider.credential(
         smsCode: smsCode, verificationId: verificationId);
-    signIn(authCreds);
+    await signIn(authCreds);
+    user != null ? MyBottomNavBar() : OnBoardingScreen();
   }
 }

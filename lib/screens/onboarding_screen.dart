@@ -16,28 +16,31 @@ class OnBoardingScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 margin:
-                    EdgeInsets.fromLTRB(30, height * 0.03, 30, height * 0.078),
+                    EdgeInsets.fromLTRB(30, height * 0.07, 30, height * 0.078),
                 child: Text(
                   "Proximity Alert",
-                  style: kRegisterTitle,
-                  textAlign: TextAlign.left,
+                  style: kRegisterTitle.copyWith(fontSize: 45),
                 ),
               ),
-              ClipPath(
-                child: Container(
-                  child: Image.asset(
-                    'assets/images/get-started.png',
-                    height: height * 0.4,
-                  ),
-                  height: height * 0.45,
-                  color: kCurveBgColor,
-                ),
-                clipper: DoubleClipper(),
-              ),
+
+              Container(
+                  height: height * 0.4,
+                  child: Image.asset('assets/images/logo.png')),
+              // ClipPath(
+              //   child: Container(
+              //     child: Image.asset(
+              //       'assets/images/get-started.png',
+              //       height: height * 0.4,
+              //     ),
+              //     height: height * 0.45,
+              //     color: kCurveBgColor,
+              //   ),
+              //   clipper: DoubleClipper(),
+              // ),
               Container(
                 margin: EdgeInsets.only(top: height * 0.08),
                 child: Center(

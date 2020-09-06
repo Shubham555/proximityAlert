@@ -23,6 +23,7 @@ class _OtpVerificationState extends State<OtpVerification> {
     final String verId = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+        backgroundColor: Colors.white,
         key: key,
         body: SafeArea(
           child: SingleChildScrollView(

@@ -16,7 +16,8 @@ class HomeScreen extends StatelessWidget {
     var locationRef =
         db.collection('user').doc(uid).collection('location-history');
 
-    locationRef.add({'location': cameraScanResult, 'dateTime': now});
+    locationRef
+        .add({'location': cameraScanResult, 'dateTime': now, 'docuid': uid});
   }
 
   @override

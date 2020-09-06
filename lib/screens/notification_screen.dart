@@ -10,22 +10,25 @@ class NotificationScreen extends StatelessWidget {
   static const routeName = "/NotificationScreen";
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     String uid = Provider.of<AuthService>(context).user.uid;
     return Scaffold(
       body: SafeArea(
         child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.only(top: height * 0.02),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Notifications",
                 style: kScreenTitle,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.start,
               ),
               SizedBox(
                 height: 10,
               ),
-              Expanded(child: _buildBody(context, uid))
+              _buildBody(context, uid)
             ],
           ),
         ),
