@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:covidScanner/models/location_history.dart';
+import 'package:intl/intl.dart';
 
 class MyNotificationCard extends StatelessWidget {
   MyNotificationCard({this.location, this.first});
@@ -38,7 +39,9 @@ class MyNotificationCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      location.time.toString().substring(0, 16),
+                      location.time.toString().substring(10, 16) +
+                          "  " +
+                          DateFormat.yMMMd().format(location.time).toString(),
                       style: first
                           ? kHistorySubtitle.copyWith(
                               fontSize: 13, color: Colors.white)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'location_history.dart';
+import 'package:intl/intl.dart';
 
 class MyCard extends StatelessWidget {
   MyCard({this.location, this.first});
@@ -39,7 +40,11 @@ class MyCard extends StatelessWidget {
                   children: [
                     Text(
                       location.time.toString() != null
-                          ? location.time.toString().substring(0, 16)
+                          ? location.time.toString().substring(10, 16) +
+                              "  " +
+                              DateFormat.yMMMd()
+                                  .format(location.time)
+                                  .toString()
                           : " ",
                       style: first
                           ? kHistorySubtitle.copyWith(
