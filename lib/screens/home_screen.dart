@@ -1,3 +1,4 @@
+import 'package:covidScanner/screens/onboarding_screen.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:covidScanner/themes/button_style.dart';
@@ -34,10 +35,29 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: height * 0.02,
             ),
-            Text(
-              "SCAN CODE",
-              style: kScreenTitle,
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Text(
+                "SCAN CODE",
+                style: kScreenTitle,
+              ),
+              SizedBox(
+                width: width * 0.14,
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: kPrimaryColor),
+                child: RawMaterialButton(
+                  child: Image.asset(
+                    'assets/images/power2.png',
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    AuthService().signOut();
+                    Navigator.pushNamed(context, OnBoardingScreen.routeName);
+                  },
+                ),
+              )
+            ]),
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.fromLTRB(

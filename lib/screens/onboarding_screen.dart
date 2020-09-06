@@ -13,49 +13,52 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin:
-                    EdgeInsets.fromLTRB(30, height * 0.07, 30, height * 0.078),
-                child: Text(
-                  "Proximity Alert",
-                  style: kRegisterTitle.copyWith(fontSize: 45),
-                ),
-              ),
-              Container(
-                  height: height * 0.4,
-                  child: Image.asset('assets/images/logo.png')),
-              Container(
-                margin: EdgeInsets.only(top: height * 0.08),
-                child: Center(
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(
+                      30, height * 0.07, 30, height * 0.078),
                   child: Text(
-                    "Join us to make your health\nour priority",
-                    style: kguideText.copyWith(fontSize: 24),
-                    textAlign: TextAlign.center,
+                    "Proximity Alert",
+                    style: kRegisterTitle.copyWith(fontSize: 45),
                   ),
                 ),
-              ),
-              Container(
-                margin:
-                    EdgeInsets.fromLTRB(30, height * 0.04, 30, height * 0.03),
-                child: Center(
-                  child: MyButtonStyle(
-                      text: 'Get Started',
-                      goto: () {
-                        Provider.of<AuthService>(context).user != null
-                            ? Navigator.pushNamed(
-                                context, MyBottomNavBar.routeName)
-                            : Navigator.pushNamed(
-                                context, LoginScreen.routeName);
-                      }),
+                Container(
+                    height: height * 0.4,
+                    child: Image.asset('assets/images/logo.png')),
+                Container(
+                  margin: EdgeInsets.only(top: height * 0.08),
+                  child: Center(
+                    child: Text(
+                      "Join us to make your health\nour priority",
+                      style: kguideText.copyWith(fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  margin:
+                      EdgeInsets.fromLTRB(30, height * 0.04, 30, height * 0.03),
+                  child: Center(
+                    child: MyButtonStyle(
+                        text: 'Get Started',
+                        goto: () {
+                          Provider.of<AuthService>(context).user != null
+                              ? Navigator.pushNamed(
+                                  context, MyBottomNavBar.routeName)
+                              : Navigator.pushNamed(
+                                  context, LoginScreen.routeName);
+                        }),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

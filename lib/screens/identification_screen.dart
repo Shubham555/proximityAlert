@@ -60,69 +60,74 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipPath(
-              child: Container(
-                height: height * 0.28,
-                color: kCurveBgColor,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Center(
-                  child: Text(
-                    "Your\nIdentification",
-                    style: kRegisterTitle,
-                    textAlign: TextAlign.center,
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: Scaffold(
+          body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ClipPath(
+                child: Container(
+                  height: height * 0.28,
+                  color: kCurveBgColor,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Center(
+                    child: Text(
+                      "Your\nIdentification",
+                      style: kRegisterTitle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
+                clipper: BottomClipper(),
               ),
-              clipper: BottomClipper(),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                "Upload an image of your\nAadhar Card",
-                style: kguideText,
-                textAlign: TextAlign.center,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  "Upload an image of your\nAadhar Card",
+                  style: kguideText,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: height * 0.05),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(height * 0.03),
-                color: kTextFieldBgColor,
+              Container(
+                margin: EdgeInsets.only(top: height * 0.05),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(height * 0.03),
+                  color: kTextFieldBgColor,
+                ),
+                height: height * 0.16,
+                width: height * 0.16,
+                child: MaterialButton(
+                  onPressed: () {
+                    String uid = Provider.of<AuthService>(context).user.uid;
+                    getnUploadImage(uid);
+                  },
+                  child: Image.asset('assets/images/upload.png'),
+                ),
               ),
-              height: height * 0.16,
-              width: height * 0.16,
-              child: MaterialButton(
-                onPressed: () {
-                  String uid = Provider.of<AuthService>(context).user.uid;
-                  getnUploadImage(uid);
-                },
-                child: Image.asset('assets/images/upload.png'),
-              ),
-            ),
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05),
-                margin:
-                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
-                child: MyButtonStyle(
-                    text: 'Continue',
-                    goto: () {
-                      uploadSuccess
-                          ? Navigator.pushNamed(
-                              context, MyBottomNavBar.routeName)
-                          : print('Upload not successful');
-                    })),
-            Image.asset(
-              'assets/images/adhar-card.png',
-            )
-          ],
+              Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  margin:
+                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
+                  child: uploadSuccess
+                      ? CircularProgressIndicator()
+                      : MyButtonStyle(
+                          text: 'Continue',
+                          goto: () {
+                            uploadSuccess
+                                ? Navigator.pushNamed(
+                                    context, MyBottomNavBar.routeName)
+                                : print('Upload not successful');
+                          })),
+              Image.asset(
+                'assets/images/adhar-card.png',
+              )
+            ],
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }
