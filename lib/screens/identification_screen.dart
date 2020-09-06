@@ -20,6 +20,7 @@ class IdentificationScreen extends StatefulWidget {
 class _IdentificationScreenState extends State<IdentificationScreen> {
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
+  bool uploadSuccess = false;
   final picker = ImagePicker();
 
   Future getnUploadImage(String uid) async {
@@ -49,7 +50,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
       StorageTaskSnapshot storageTaskSnapshot =
           await storageUploadTask.onComplete;
       var downloadUrl1 = await storageTaskSnapshot.ref.getDownloadURL();
-
+      uploadSuccess = true;
       print("Download URL " + downloadUrl1.toString());
     } else {
       print("ERROR in the image picker");
@@ -109,9 +110,12 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 margin:
                     EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
                 child: MyButtonStyle(
-                    text: 'Upload',
+                    text: 'Continue',
                     goto: () {
-                      Navigator.pushNamed(context, MyBottomNavBar.routeName);
+                      uploadSuccess
+                          ? Navigator.pushNamed(
+                              context, MyBottomNavBar.routeName)
+                          : print('Upload not successful');
                     })),
             Image.asset(
               'assets/images/adhar-card.png',

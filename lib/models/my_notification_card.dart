@@ -9,41 +9,47 @@ class MyNotificationCard extends StatelessWidget {
   final bool first;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(bottom: 15),
-      color: first ? kPrimaryColor : kTextFieldBgColor,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(17, 8, 17, 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "You might have been infected at ${location.location}",
-              textAlign: TextAlign.left,
-              style: first
-                  ? kHistoryTitle.copyWith(color: Colors.white)
-                  : kHistoryTitle,
-            ),
-            Text(
-              "Consider getting yourself checked",
-              style: first
-                  ? kHistorySubtitle.copyWith(color: Colors.white)
-                  : kHistorySubtitle,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 12),
+        child: Card(
+          color: first ? kPrimaryColor : kTextFieldBgColor,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(17, 8, 17, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  location.time.toString().substring(0, 16),
+                  "You might have been infected at ${location.location}",
+                  textAlign: TextAlign.left,
                   style: first
-                      ? kHistorySubtitle.copyWith(
-                          fontSize: 13, color: Colors.white)
-                      : kHistorySubtitle.copyWith(fontSize: 13),
-                  textAlign: TextAlign.end,
+                      ? kHistoryTitle.copyWith(
+                          color: Colors.white, fontSize: 17)
+                      : kHistoryTitle,
                 ),
+                Text(
+                  "Consider getting yourself checked",
+                  style: first
+                      ? kHistorySubtitle.copyWith(color: Colors.white)
+                      : kHistorySubtitle,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      location.time.toString().substring(0, 16),
+                      style: first
+                          ? kHistorySubtitle.copyWith(
+                              fontSize: 13, color: Colors.white)
+                          : kHistorySubtitle.copyWith(fontSize: 13),
+                      textAlign: TextAlign.end,
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );

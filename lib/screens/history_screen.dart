@@ -64,13 +64,12 @@ Widget _buildBody(BuildContext context, String uid) {
 }
 
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-  l = snapshot;
   return ListView.builder(
-      itemCount: l.length,
+      itemCount: snapshot.length,
       shrinkWrap: true,
       padding: const EdgeInsets.only(top: 20.0),
       itemBuilder: (context, index) =>
-          _buildListItem(context, index, l[index]));
+          _buildListItem(context, index, snapshot[index]));
 }
 
 Widget _buildListItem(BuildContext context, int index, DocumentSnapshot data) {

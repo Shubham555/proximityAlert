@@ -54,38 +54,19 @@ Widget _buildBody(BuildContext context, String uid) {
 }
 
 Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-  return ListView(
-    shrinkWrap: true,
-    padding: const EdgeInsets.only(top: 20.0),
-    children: snapshot.map((data) => _buildListItem(context, data)).toList(),
-  );
+  return ListView.builder(
+      itemCount: snapshot.length,
+      shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 20.0),
+      itemBuilder: (context, index) =>
+          _buildListItem(context, index, snapshot[index]));
 }
 
-Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+Widget _buildListItem(BuildContext context, int index, DocumentSnapshot data) {
   final locationHistory = LocationHistory.fromSnapshot(data);
 
   return MyNotificationCard(
-    first: DateTime.fromMicrosecondsSinceEpoch(
-                locationHistory.time.microsecondsSinceEpoch)
-            .difference(DateTime.now())
-            .inDays ==
-        0,
+    first: index == 0,
     location: locationHistory,
   );
 }
-
-//hello
-// Container(
-//                 child: ListView.builder(
-//                     itemCount: notificationHistory.length,
-//                     itemBuilder: (context, index) {
-//                       return MyNotificationCard(
-//                         title: "Proximity Alert",
-//                         subTitle:
-//                             "You might have encountered Covid +ve person at ${notificationHistory[index]['location']}. Consider a testing done",
-//                         time:
-//                             "${notificationHistory[index]['date']} ${notificationHistory[index]['time']}",
-//                         first: index == 0,
-//                       );
-//                     }),
-//               )
