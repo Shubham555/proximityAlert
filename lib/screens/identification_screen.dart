@@ -8,7 +8,6 @@ import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class IdentificationScreen extends StatefulWidget {
   static const routeName = "/IdentificationScreen";
@@ -18,6 +17,7 @@ class IdentificationScreen extends StatefulWidget {
 }
 
 class _IdentificationScreenState extends State<IdentificationScreen> {
+  @override
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
   bool uploadStart = false;
@@ -53,9 +53,6 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
       var downloadUrl1 =
           await storageTaskSnapshot.ref.getDownloadURL().then((value) {
         uploadSuccess = true;
-      });
-      setState(() {
-        uploadStart = true;
       });
 
       print("Download URL " + downloadUrl1.toString());
@@ -114,24 +111,16 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05),
-                margin:
-                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
-                child: uploadStart
-                    ? uploadSuccess
-                        ? CircularProgressIndicator()
-                        : MyButtonStyle(
-                            text: 'Continue',
-                            goto: () {
-                              uploadSuccess
-                                  ? Navigator.pushNamed(
-                                      context, MyBottomNavBar.routeName)
-                                  : Text('Upload not successful');
-                            },
-                          )
-                    : Container(),
-              ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  margin:
+                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
+                  child: MyButtonStyle(
+                    text: 'Continue',
+                    goto: () {
+                      Navigator.pushNamed(context, MyBottomNavBar.routeName);
+                    },
+                  )),
               Image.asset(
                 'assets/images/adhar-card.png',
               )

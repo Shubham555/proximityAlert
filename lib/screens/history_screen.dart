@@ -18,6 +18,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   int first = 2;
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -58,7 +59,9 @@ Widget _buildBody(BuildContext context, String uid) {
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
 
-      return _buildList(context, snapshot.data.docs);
+      return Container(
+          height: MediaQuery.of(context).size.height * 0.81,
+          child: _buildList(context, snapshot.data.docs));
     },
   );
 }

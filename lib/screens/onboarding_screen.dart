@@ -16,6 +16,7 @@ class OnBoardingScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -31,7 +32,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Container(
                     height: height * 0.4,
-                    child: Image.asset('assets/images/logo.png')),
+                    child: Image.asset('assets/images/logo2.png')),
                 Container(
                   margin: EdgeInsets.only(top: height * 0.08),
                   child: Center(

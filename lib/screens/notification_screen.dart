@@ -40,15 +40,16 @@ class NotificationScreen extends StatelessWidget {
 Widget _buildBody(BuildContext context, String uid) {
   return StreamBuilder<QuerySnapshot>(
     stream: FirebaseFirestore.instance
-        .collection('user')
-        .doc(uid)
-        .collection('infected-locations')
-        .orderBy('dateTime')
+        .collection('inf-notif')
+        .where('docuid', isEqualTo: uid)
+        .orderBy('dateTime', descending: true)
         .snapshots(),
     builder: (context, snapshot) {
       if (!snapshot.hasData) return LinearProgressIndicator();
 
-      return _buildList(context, snapshot.data.docs);
+      return Container(
+          height: MediaQuery.of(context).size.height * 0.81,
+          child: _buildList(context, snapshot.data.docs));
     },
   );
 }

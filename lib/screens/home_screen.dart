@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:covidScanner/screens/onboarding_screen.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,28 +9,47 @@ import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = "/HomeScreen";
-  final FirebaseMessaging _fcm = FirebaseMessaging();
-//For ios push notifications
-  //  @override
-  //   void initState() {
-  //       super.initState();
-  //       if (Platform.isIOS) {
-  //           iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-  //               // save the token  OR subscribe to a topic here
-  //           });
 
-  //           _fcm.requestNotificationPermissions(IosNotificationSettings());
-  //       }
-  //   }
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _configureFirebaseListners();
+  }
+
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  _configureFirebaseListners() {
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("Message: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("Message: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("Message: $message");
+      },
+    );
+  }
+
   var db = FirebaseFirestore.instance;
+
   Future scanQr(String uid) async {
-    String fcmToken = await _fcm.getToken();
+    String fcmToken = await _fcm.getToken().then((value) {
+      print("FCM:  $value");
+      return value;
+    });
 
     // Save it to Firestore
     if (fcmToken != null) {
-      var tokens = db.collection('users').doc(uid);
+      var tokens = db.collection('user').doc(uid);
 
       await tokens.set({
         'fcm': fcmToken,
