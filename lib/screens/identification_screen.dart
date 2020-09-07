@@ -20,7 +20,8 @@ class IdentificationScreen extends StatefulWidget {
 class _IdentificationScreenState extends State<IdentificationScreen> {
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
-  bool uploadSuccess = false;
+  bool uploadStart = false;
+  bool uploadSuccess = true;
   final picker = ImagePicker();
 
   Future getnUploadImage(String uid) async {
@@ -49,8 +50,14 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
       StorageTaskSnapshot storageTaskSnapshot =
           await storageUploadTask.onComplete;
-      var downloadUrl1 = await storageTaskSnapshot.ref.getDownloadURL();
-      uploadSuccess = true;
+      var downloadUrl1 =
+          await storageTaskSnapshot.ref.getDownloadURL().then((value) {
+        uploadSuccess = true;
+      });
+      setState(() {
+        uploadStart = true;
+      });
+
       print("Download URL " + downloadUrl1.toString());
     } else {
       print("ERROR in the image picker");
@@ -85,7 +92,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  "Upload an image of your\nAadhar Card",
+                  "Upload an image of your\nAadhar Card to Continue",
                   style: kguideText,
                   textAlign: TextAlign.center,
                 ),
@@ -107,20 +114,24 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05),
-                  margin:
-                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
-                  child: uploadSuccess
-                      ? CircularProgressIndicator()
-                      : MyButtonStyle(
-                          text: 'Continue',
-                          goto: () {
-                            uploadSuccess
-                                ? Navigator.pushNamed(
-                                    context, MyBottomNavBar.routeName)
-                                : print('Upload not successful');
-                          })),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05),
+                margin:
+                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
+                child: uploadStart
+                    ? uploadSuccess
+                        ? CircularProgressIndicator()
+                        : MyButtonStyle(
+                            text: 'Continue',
+                            goto: () {
+                              uploadSuccess
+                                  ? Navigator.pushNamed(
+                                      context, MyBottomNavBar.routeName)
+                                  : Text('Upload not successful');
+                            },
+                          )
+                    : Container(),
+              ),
               Image.asset(
                 'assets/images/adhar-card.png',
               )

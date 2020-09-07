@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:covidScanner/screens/onboarding_screen.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +7,38 @@ import 'package:covidScanner/themes/button_style.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:covidScanner/services/authservice.dart';
 import 'package:provider/provider.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "/HomeScreen";
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+//For ios push notifications
+  //  @override
+  //   void initState() {
+  //       super.initState();
+  //       if (Platform.isIOS) {
+  //           iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+  //               // save the token  OR subscribe to a topic here
+  //           });
+
+  //           _fcm.requestNotificationPermissions(IosNotificationSettings());
+  //       }
+  //   }
   var db = FirebaseFirestore.instance;
   Future scanQr(String uid) async {
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens = db.collection('users').doc(uid);
+
+      await tokens.set({
+        'fcm': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(), // optional
+        'platform': Platform.operatingSystem // optional
+      });
+    }
     String cameraScanResult = await scanner.scan();
     var now = DateTime.now();
     var locationRef =

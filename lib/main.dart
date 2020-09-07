@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: OnBoardingScreen(),
+        initialRoute: OnBoardingScreen.routeName,
         routes: {
           OnBoardingScreenDark.routeName: (context) => OnBoardingScreenDark(),
           OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
