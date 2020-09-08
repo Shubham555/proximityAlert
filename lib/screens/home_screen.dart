@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var db = FirebaseFirestore.instance;
 
-  Future scanQr(String uid) async {
+  Future scanQr(String uid, String phoneno) async {
     String fcmToken = await _fcm.getToken().then((value) {
       print("FCM:  $value");
       return value;
@@ -62,8 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
     var locationRef =
         db.collection('user').doc(uid).collection('location-history');
 
-    locationRef
-        .add({'location': cameraScanResult, 'dateTime': now, 'docuid': uid});
+    locationRef.add({
+      'phoneNo': phoneno,
+      'location': cameraScanResult,
+      'dateTime': now,
+      'docuid': uid
+    });
   }
 
   @override
@@ -129,7 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: EdgeInsets.symmetric(horizontal: width * 0.05),
               child: MyButtonStyle(
                 text: "Scan Now",
-                goto: () => scanQr(authProvider.user.uid),
+                goto: () => scanQr(
+                    authProvider.user.uid, authProvider.user.phoneNumber),
               ),
             )
           ],

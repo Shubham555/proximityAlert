@@ -3,7 +3,6 @@ import 'package:covidScanner/screens/login_screen.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:covidScanner/themes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 import 'package:provider/provider.dart';
 

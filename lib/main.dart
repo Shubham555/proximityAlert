@@ -1,7 +1,4 @@
-import 'package:covidScanner/models/location_history.dart';
-import 'package:covidScanner/screens/onboarding_dark.dart';
 import 'package:covidScanner/services/authservice.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/login_screen.dart';
@@ -14,7 +11,7 @@ import 'models/bottom_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'screens/splash_screen.dart';
 
 void main() async {
@@ -36,7 +33,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: OnBoardingScreen.routeName,
         routes: {
-          OnBoardingScreenDark.routeName: (context) => OnBoardingScreenDark(),
           OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           OtpVerification.routeName: (context) => OtpVerification(),
