@@ -8,6 +8,7 @@ import 'package:covidScanner/themes/bg_clipper.dart';
 import 'package:covidScanner/themes/button_style.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:covidScanner/models/alert_box.dart';
 
 class IdentificationScreen extends StatefulWidget {
   static const routeName = "/IdentificationScreen";
@@ -17,6 +18,8 @@ class IdentificationScreen extends StatefulWidget {
 }
 
 class _IdentificationScreenState extends State<IdentificationScreen> {
+  upal() {}
+
   @override
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
@@ -37,7 +40,9 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
     StorageUploadTask storageUploadTask = ref.child(uid).putFile(_image);
 
-    if (storageUploadTask.isSuccessful || storageUploadTask.isComplete) {
+    if (storageUploadTask.isSuccessful ||
+        storageUploadTask.isComplete ||
+        storageUploadTask.isCanceled) {
       final String url = await ref.getDownloadURL();
       print("The download URL is " + url);
     } else if (storageUploadTask.isInProgress) {
@@ -63,6 +68,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isSuccess = false;
     final height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () => Future.value(false),
@@ -105,7 +111,10 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     String uid = Provider.of<AuthService>(context).user.uid;
-                    getnUploadImage(uid);
+                    getnUploadImage(uid).then((value) {
+                      isSuccess = true;
+                      showAlertDialog(context, "Aadhar card uploaded");
+                    });
                   },
                   child: Image.asset('assets/images/upload.png'),
                 ),

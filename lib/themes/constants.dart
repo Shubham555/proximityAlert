@@ -5,6 +5,10 @@ const kCurveBgColor = Color(0xffF2F1FD);
 const kMainFontColor = Color(0xff3B3B3B);
 const kTextFieldBgColor = Color(0xffEDEEF4);
 const kguideTextColor = Color(0xff9ea7af);
+const kAlertBoxTitle = TextStyle(
+  fontFamily: 'GoogleSans',
+  color: kPrimaryColor,
+);
 const kRegisterTitle = TextStyle(
     fontFamily: 'GoogleSans',
     fontWeight: FontWeight.bold,

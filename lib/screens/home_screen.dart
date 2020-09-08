@@ -8,6 +8,7 @@ import 'package:covidScanner/services/authservice.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covidScanner/models/alert_box.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/HomeScreen";
@@ -41,11 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var db = FirebaseFirestore.instance;
 
-  Future scanQr(String uid, String phoneno) async {
-    String fcmToken = await _fcm.getToken().then((value) {
-      print("FCM:  $value");
-      return value;
-    });
+  Future<String> scanQr(String uid, String phoneno) async {
+    String fcmToken = await _fcm.getToken();
 
     // Save it to Firestore
     if (fcmToken != null) {
@@ -68,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'dateTime': now,
       'docuid': uid
     });
+    return cameraScanResult;
   }
 
   @override
@@ -134,7 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: MyButtonStyle(
                 text: "Scan Now",
                 goto: () => scanQr(
-                    authProvider.user.uid, authProvider.user.phoneNumber),
+                        authProvider.user.uid, authProvider.user.phoneNumber)
+                    .then(
+                        (value) => showAlertDialog(context, "$value \nAdded")),
               ),
             )
           ],
