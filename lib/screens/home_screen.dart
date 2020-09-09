@@ -92,12 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: width * 0.14,
               ),
               Container(
+                height: 43,
                 decoration:
                     BoxDecoration(shape: BoxShape.circle, color: kPrimaryColor),
                 child: RawMaterialButton(
                   child: Image.asset(
                     'assets/images/power2.png',
-                    color: Colors.black,
+                    color: Colors.white,
+                    height: 25,
                   ),
                   onPressed: () {
                     AuthService().signOut();

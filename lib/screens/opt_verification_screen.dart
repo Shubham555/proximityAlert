@@ -6,6 +6,7 @@ import 'package:covidScanner/themes/button_style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:covidScanner/services/authservice.dart';
 import 'package:provider/provider.dart';
+import 'package:covidScanner/models/alert_box.dart';
 
 class OtpVerification extends StatefulWidget {
   static const routeName = "/OtpVerificationScreen";
@@ -45,7 +46,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                   clipper: BottomClipper(),
                 ),
                 Container(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.all(height * 0.03558),
                   child: Text(
                     "Enter your OTP here",
                     style: kguideText,
@@ -57,6 +58,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 30),
                     child: PinCodeTextField(
+                      textInputType: TextInputType.number,
                       controller: myController,
                       appContext: context,
                       onChanged: (String otp) {
@@ -99,14 +101,15 @@ class _OtpVerificationState extends State<OtpVerification> {
                       authProvider.isAuthenticated
                           ? Navigator.pushNamed(
                               context, IdentificationScreen.routeName)
-                          : AlertDialog(
-                              title: Text("Wrong Otp"),
-                            );
+                          : showAlertDialog(context, "Wrong OTP");
                     },
                   ),
                 ),
-                Image.asset(
-                  'assets/images/otp.png',
+                Container(
+                  height: height * 0.32,
+                  child: Image.asset(
+                    'assets/images/otp.png',
+                  ),
                 )
               ],
             ),

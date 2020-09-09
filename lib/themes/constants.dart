@@ -32,12 +32,13 @@ const kScreenTitle = TextStyle(
     fontSize: 22);
 const kHistoryTitle = TextStyle(
   fontFamily: 'GoogleSans',
-  fontWeight: FontWeight.w400,
-  fontSize: 18,
+  fontWeight: FontWeight.w600,
+  letterSpacing: 1,
+  fontSize: 23,
 );
 const kHistorySubtitle = TextStyle(
   fontFamily: 'GoogleSans',
   fontSize: 15,
-  color: kMainFontColor,
+  color: kguideTextColor,
   fontWeight: FontWeight.w300,
 );

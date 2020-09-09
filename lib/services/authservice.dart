@@ -13,13 +13,6 @@ class AuthService with ChangeNotifier {
   StreamSubscription userAuthSub;
   //Handles Auth
 
-  // Future<bool> getBoolValuesSF() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   //Return bool
-  //   bool boolValue = prefs.getBool('boolValue');
-  //   return boolValue;
-  // }
-
   AuthService() {
     userAuthSub = FirebaseAuth.instance.authStateChanges().listen((newUser) {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $newUser');

@@ -17,9 +17,9 @@ showAlertDialog(BuildContext context, String text) {
   AlertDialog alert = AlertDialog(
     title: Text(
       text,
+      textAlign: TextAlign.center,
       style: kAlertBoxTitle,
     ),
-    // content: Text("This is an alert message.")
     actions: [
       okButton,
     ],

@@ -20,7 +20,6 @@ class IdentificationScreen extends StatefulWidget {
 class _IdentificationScreenState extends State<IdentificationScreen> {
   upal() {}
 
-  @override
   StorageReference storageReference = FirebaseStorage.instance.ref();
   File _image;
   bool uploadStart = false;
@@ -66,75 +65,78 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
     }
   }
 
+  bool isSuccess = false;
   @override
   Widget build(BuildContext context) {
-    bool isSuccess = false;
     final height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
           body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ClipPath(
-                child: Container(
-                  height: height * 0.28,
-                  color: kCurveBgColor,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Center(
-                    child: Text(
-                      "Your\nIdentification",
-                      style: kRegisterTitle,
-                      textAlign: TextAlign.center,
-                    ),
+        child: Column(
+          children: [
+            ClipPath(
+              child: Container(
+                height: height * 0.28,
+                color: kCurveBgColor,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Center(
+                  child: Text(
+                    "Your\nIdentification",
+                    style: kRegisterTitle,
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                clipper: BottomClipper(),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  "Upload an image of your\nAadhar Card to Continue",
-                  style: kguideText,
-                  textAlign: TextAlign.center,
-                ),
+              clipper: BottomClipper(),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Text(
+                "Click on Icon to Upload an image of your\nAadhar Card",
+                style: kguideText,
+                textAlign: TextAlign.center,
               ),
-              Container(
-                margin: EdgeInsets.only(top: height * 0.05),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(height * 0.03),
-                  color: kTextFieldBgColor,
-                ),
-                height: height * 0.16,
-                width: height * 0.16,
-                child: MaterialButton(
-                  onPressed: () {
-                    String uid = Provider.of<AuthService>(context).user.uid;
-                    getnUploadImage(uid).then((value) {
-                      isSuccess = true;
-                      showAlertDialog(context, "Aadhar card uploaded");
-                    });
+            ),
+            Container(
+              margin: EdgeInsets.only(top: height * 0.05),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(height * 0.03),
+                color: kTextFieldBgColor,
+              ),
+              height: height * 0.16,
+              width: height * 0.16,
+              child: MaterialButton(
+                onPressed: () {
+                  String uid = Provider.of<AuthService>(context).user.uid;
+                  getnUploadImage(uid).then((value) {
+                    isSuccess = true;
+                    showAlertDialog(context, "Aadhar card uploaded");
+                  });
+                },
+                child: Image.asset('assets/images/upload.png'),
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05),
+                margin:
+                    EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
+                child: MyButtonStyle(
+                  text: 'Continue',
+                  goto: () {
+                    isSuccess
+                        ? Navigator.pushNamed(context, MyBottomNavBar.routeName)
+                        : print("not success");
                   },
-                  child: Image.asset('assets/images/upload.png'),
-                ),
-              ),
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05),
-                  margin:
-                      EdgeInsets.fromLTRB(0, height * 0.02, 0, height * 0.025),
-                  child: MyButtonStyle(
-                    text: 'Continue',
-                    goto: () {
-                      Navigator.pushNamed(context, MyBottomNavBar.routeName);
-                    },
-                  )),
-              Image.asset(
+                )),
+            Container(
+              height: height * 0.262,
+              child: Image.asset(
                 'assets/images/adhar-card.png',
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       )),
     );

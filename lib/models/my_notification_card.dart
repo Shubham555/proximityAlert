@@ -21,31 +21,31 @@ class MyNotificationCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Proximity Alert",
+                    textAlign: TextAlign.left,
+                    style: first
+                        ? kHistoryTitle.copyWith(
+                            color: Colors.white,
+                          )
+                        : kHistoryTitle),
                 Text(
-                  "You might have been infected at ${location.location}",
-                  textAlign: TextAlign.left,
+                  "You might have encountered a Covid +ve person, consider a testing done.\nBe Safe!!",
                   style: first
-                      ? kHistoryTitle.copyWith(
-                          color: Colors.white, fontSize: 17)
-                      : kHistoryTitle,
-                ),
-                Text(
-                  "Consider getting yourself checked",
-                  style: first
-                      ? kHistorySubtitle.copyWith(color: Colors.white)
+                      ? kHistorySubtitle.copyWith(
+                          color: Colors.white,
+                        )
                       : kHistorySubtitle,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      location.time.toString().substring(10, 16) +
-                          "  " +
-                          DateFormat.yMMMd().format(location.time).toString(),
+                      DateFormat.yMMMd().format(location.time).toString(),
                       style: first
                           ? kHistorySubtitle.copyWith(
                               fontSize: 13, color: Colors.white)
-                          : kHistorySubtitle.copyWith(fontSize: 13),
+                          : kHistorySubtitle.copyWith(
+                              fontSize: 13, color: Colors.black),
                       textAlign: TextAlign.end,
                     ),
                   ],

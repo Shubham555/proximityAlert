@@ -9,8 +9,11 @@ class MyCard extends StatelessWidget {
   final bool first;
   @override
   Widget build(BuildContext context) {
-    List<String> loc = location.location.split(',');
+    double width = MediaQuery.of(context).size.width;
 
+    List<String> title = location.location.split(',');
+    String subtitle = location.location.replaceFirst(title[0] + ",", "");
+    subtitle = subtitle.replaceAll(",", "\n");
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
@@ -19,43 +22,41 @@ class MyCard extends StatelessWidget {
           color: first ? kPrimaryColor : kTextFieldBgColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(17, 8, 17, 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  loc[0] != null ? loc[0] : " ",
-                  textAlign: TextAlign.left,
-                  style: first
-                      ? kHistoryTitle.copyWith(color: Colors.white)
-                      : kHistoryTitle,
-                ),
-                Text(
-                  loc[1] != null ? loc[1] : " ",
-                  style: first
-                      ? kHistorySubtitle.copyWith(color: Colors.white)
-                      : kHistorySubtitle,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      location.time.toString() != null
-                          ? location.time.toString().substring(10, 16) +
-                              "  " +
-                              DateFormat.yMMMd()
-                                  .format(location.time)
-                                  .toString()
-                          : " ",
+                      title[0] != null ? title[0] : " ",
+                      textAlign: TextAlign.left,
                       style: first
-                          ? kHistorySubtitle.copyWith(
-                              fontSize: 13, color: Colors.white)
-                          : kHistorySubtitle.copyWith(fontSize: 13),
-                      textAlign: TextAlign.end,
+                          ? kHistoryTitle.copyWith(color: Colors.white)
+                          : kHistoryTitle,
+                    ),
+                    Text(
+                      subtitle != null ? subtitle : " ",
+                      style: first
+                          ? kHistorySubtitle.copyWith(color: Colors.white)
+                          : kHistorySubtitle,
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  location.time.toString() != null
+                      ? DateFormat.yMMMd().format(location.time).toString()
+                      : " ",
+                  style: first
+                      ? kHistorySubtitle.copyWith(
+                          fontSize: 13, color: Colors.white)
+                      : kHistorySubtitle.copyWith(fontSize: 13),
+                  textAlign: TextAlign.end,
+                ),
+              )
+            ]),
           ),
         ),
       ),
